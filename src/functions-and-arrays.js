@@ -231,7 +231,7 @@ function greatestProduct(arr) {
       } else {
         arrD.push(newArr);
         newArr = []
-        newArr.push([arr[i][j], arr[i + 1][j], arr[i + 2][j], arr[i + 3][j]]);
+        newArr.push([arr[i][j], arr[i + 1][j + 1], arr[i + 2][j + 2], arr[i + 3][j + 3]]);
       }
     }
   }
