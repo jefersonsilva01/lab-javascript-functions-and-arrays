@@ -1,41 +1,103 @@
 // Iteration #1: Find the maximum
-function maxOfTwoNumbers() {}
-
-
+function maxOfTwoNumbers(num1, num2) {
+  if (num1 > num2) {
+    return num1
+  } else {
+    return num2
+  }
+}
 
 // Iteration #2: Find longest word
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
 
-function findLongestWord() {}
+function findLongestWord(arr) {
+  if (arr.length === 0) return null;
+  if (arr.length === 1) return arr[0];
 
+  let word = arr[0];
 
+  for (let i = 1; i < arr.length; i++) {
+    if (word.length >= arr[i].length) {
+      continue
+    } else if (word.length < arr[i].length) {
+      word = arr[i]
+    }
+  }
+  return word;
+}
 
 // Iteration #3: Calculate the sum
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
-function sumNumbers() {}
+// Iteration #3.1 Sum numbers Bonus:
+function sumNumbers(arr) {
+  if (arr.length === 0) return 0;
 
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum = sum + arr[i];
+  }
+  return sum;
+}
 
+// Iteration #3.2 A generci sum() Bonus:
+const mixedArr = [6, 12, 'miami', 1, true, 'barca', '200', 'lisboa', 8, 10];
 
-// Iteration #3.1 Bonus:
-function sum() {}
+function sum(arr) {
+  if (arr.length === 0) return 0;
 
+  let sum = 0
 
+  for (let i = 0; i < arr.length; i++) {
+    let typeElement = typeof arr[i];
+    let element = arr[i];
+
+    if (typeElement === 'number') {
+      sum += element;
+    } else if (typeElement === 'string') {
+      sum += element.length;
+    } else if (element === true) {
+      sum += 1
+    } else if (element === false) {
+      continue
+    } else {
+      throw new Error("Error, data type invalid");
+    }
+  }
+
+  return sum;
+}
 
 // Iteration #4: Calculate the average
 // Level 1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function averageNumbers() {}
+function averageNumbers(arr) {
+  if (arr.length === 0) return null
 
+  return sum(arr) / arr.length;
+}
 
 // Level 2: Array of strings
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
 
-function averageWordLength() { }
+function averageWordLength(arr) {
+  if (arr.length === 0) return null
+
+  let sum = 0
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i].length
+  }
+
+  return sum / arr.length
+}
 
 // Bonus - Iteration #4.1
-function avg() {}
+function avg(arr) {
+  if (arr.length === 0) return null
+
+  return sum(arr) / arr.length;
+}
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
@@ -52,16 +114,30 @@ const wordsUnique = [
   'bring'
 ];
 
-function uniquifyArray() {}
+function uniquifyArray(arr) {
+  if (arr.length === 0) return null
+
+  let newArr = [arr[0]]
+
+  for (let i = 1; i < arr.length; i++) {
+    if (newArr.includes(arr[i])) {
+      continue
+    } else {
+      newArr.push(arr[i]);
+    }
+  }
+
+  return newArr;
+}
 
 
 
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
 
-function doesWordExist() {}
-
-
+function doesWordExist(arr, word) {
+  return arr.length === 0 ? null : arr.includes(word);
+}
 
 // Iteration #7: Count repetition
 const wordsCount = [
@@ -78,9 +154,17 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes() {}
+function howManyTimes(arr, word) {
+  if (arr.length === 0) return 0;
 
+  let countWord = 0;
 
+  for (let i = 0; i < arr.length; i++) {
+    if (word === arr[i]) countWord++
+  }
+
+  return countWord;
+}
 
 // Iteration #8: Bonus
 const matrix = [
@@ -106,10 +190,89 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(arr) {
+  let arrH = [];
+  let arrV = [];
+  let arrD = [];
+  let hProduct = 0;
+  let vProduct = 0;
+  let dProduct = 0;
 
 
+  // Crie novo arrey estruturado 3D horizontal
+  for (let i = 0; i < arr.length; i++) {
+    let newArrH = []
+    for (let j = 0, end = 4; j < arr[i].length; j += 4, end += 4) {
+      newArrH.push(arr[i].slice(j, end));
+    }
+    arrH.push(newArrH);
+  }
 
+  // Crie novo arrey estruturado 3D vertical
+  for (let i = 0; i < arr.length; i += 4) {
+    let newArr = []
+    for (let j = 0; j < arr[i].length; j++) {
+      if (newArr.length < 5) {
+        newArr.push([arr[i][j], arr[i + 1][j], arr[i + 2][j], arr[i + 3][j]]);
+      } else {
+        arrV.push(newArr);
+        newArr = []
+        newArr.push([arr[i][j], arr[i + 1][j], arr[i + 2][j], arr[i + 3][j]]);
+      }
+    }
+  }
+
+  // Crie novo arrey estruturado 3D diagonals
+  for (let i = 0; i < arr.length; i += 4) {
+    let newArr = []
+    for (let j = 0; j < arr[i].length; j++) {
+      if (newArr.length < 5) {
+        newArr.push([arr[i][j], arr[i + 1][j + 1], arr[i + 2][j + 2], arr[i + 3][j + 3]]);
+      } else {
+        arrD.push(newArr);
+        newArr = []
+        newArr.push([arr[i][j], arr[i + 1][j], arr[i + 2][j], arr[i + 3][j]]);
+      }
+    }
+  }
+
+  // Faço as soma horizontal
+  for (let i = 0; i < arrH.length; i++) {
+    for (let j = 0; j < arrH[i].length; j++) {
+      mult = 1
+      for (let x = 0; x < arrH[i][j].length; x++) {
+        mult *= arrH[i][j][x];
+      }
+    }
+    if (hProduct < mult) hProduct = mult;
+  }
+
+  // Faço as soma vertical
+  for (let i = 0; i < arrV.length; i++) {
+    for (let j = 0; j < arrV[i].length; j++) {
+      mult = 1
+      for (let x = 0; x < arrV[i][j].length; x++) {
+        mult *= arrV[i][j][x];
+      }
+    }
+    if (vProduct < mult) vProduct = mult;
+  }
+
+  // Faço as soma Diagonal
+  for (let i = 0; i < arrD.length; i++) {
+    for (let j = 0; j < arrD[i].length; j++) {
+      mult = 1
+      for (let x = 0; x < arrD[i][j].length; x++) {
+        mult *= arrD[i][j][x];
+      }
+    }
+    if (dProduct < mult) dProduct = mult;
+  }
+
+  return [dProduct, hProduct, vProduct].sort()[0];
+}
+
+console.log(greatestProduct(matrix));
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
